@@ -3,24 +3,28 @@
 require 'twitter'
 require 'feedjira'
 
-# Feed Setup
-url = "http://jonathanpike.net/feed.xml"
-feed = Feedjira::Feed.fetch_and_parse(url)
-entry = feed.entries.first
+module Pikebot
+  # Feed Setup
+  url = "http://jonathanpike.net/feed.xml"
+  feed = Feedjira::Feed.fetch_and_parse(url)
+  entry = feed.entries.first
 
-# Twitter Setup
-client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
-  config.consumer_secret     = ENV["TWITTER_CONSUMER_SECRET"]
-  config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
-  config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"]
-end
+  # Twitter Setup
+  client = Twitter::REST::Client.new do |config|
+    config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
+    config.consumer_secret     = ENV["TWITTER_CONSUMER_SECRET"]
+    config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
+    config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"]
+  end
 
-# If a blog post has been published in the last hour
-# publish the title and link to Twitter
-if Time.now - entry.published <= 3600
-  client.update("#{entry.title}: http://www.jonathanpike.net#{entry.url}")
-  puts "Updated Twitter! Your last Tweet was '#{entry.title}: http://www.jonathanpike.net#{entry.url}'"
-else
-  puts "No new posts to Tweet about!"
+  # If a blog post has been published in the last hour
+  # publish the title and link to Twitter
+  if __FILE__ == $0
+    if Time.now - entry.published <= 3600
+      client.update("#{entry.title}: http://www.jonathanpike.net#{entry.url}")
+      puts "Updated Twitter! Your last Tweet was '#{entry.title}: http://www.jonathanpike.net#{entry.url}'"
+    else
+      puts "No new posts to Tweet about!"
+    end  
+  end    
 end
