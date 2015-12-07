@@ -1,6 +1,6 @@
 # Pikebot
 
-## A really simple Ruby script to post new blog entries to Twitter
+A really simple Ruby script to post new blog entries to Twitter
 
 ## Dependencies
 
