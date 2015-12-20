@@ -2,13 +2,13 @@
 
 module UTCnow
 
-	def self.pbcopy(input)
+  def self.pbcopy(input)
 	  str = input.to_s
 	  IO.popen('pbcopy', 'w') { |f| f << str }
 	  puts 'Copied!'
-	end
+  end
 
-	t = Time.now.utc.strftime("%F %T")
+  t = Time.now.utc.strftime("%F %T")
 
   pbcopy(t)
 
