@@ -21,7 +21,7 @@ module Pikebot
   # publish the title and link to Twitter
   if __FILE__ == $0
     if Time.now.utc - entry.published <= 3600
-      client.update("#{entry.title}: http://www.jonathanpike.net#{entry.url}")
+      client.update("#{entry.title}: #{entry.url}")
       puts "Updated Twitter! Your last Tweet was '#{entry.title}: http://www.jonathanpike.net#{entry.url}'"
     else
       puts "No new posts to Tweet about!"
